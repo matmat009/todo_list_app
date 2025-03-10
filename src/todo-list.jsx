@@ -9,7 +9,7 @@ function App() {
   });
   const [newTask, setNewTask] = useState("");
   const [filter, setFilter] = useState("all");
-  const [completionMessage, setCompletionMessage] = useState(""); // ✅ New state
+  const [completionMessage, setCompletionMessage] = useState();
 
   useEffect(() => {
     document.body.classList.toggle("dark", darkMode);
@@ -39,9 +39,8 @@ function App() {
     );
     setTasks(updatedTasks);
 
-    // Show success message
-    setCompletionMessage("✅ Task marked as complete!");
-    setTimeout(() => setCompletionMessage(""), 2000); // Hide after 2 seconds
+    setCompletionMessage("Task marked as complete!");
+    setTimeout(() => setCompletionMessage(""), 2000);
   };
 
   const deleteTask = (index) => {
@@ -68,7 +67,7 @@ function App() {
       <header className="app-header">
         <div className="logo">Mat</div>
         <button className="theme-toggle-button" onClick={toggleTheme}>
-          {darkMode ? "🔆 Light Mode" : "🌙 Dark Mode"}
+          {darkMode ? "Light Mode" : "Dark Mode"}
         </button>
       </header>
 
@@ -90,8 +89,8 @@ function App() {
 
           <div className="filters">
             <button onClick={() => handleFilterChange("all")}>All</button>
-            <button onClick={() => handleFilterChange("completed")}>✅ Completed</button>
-            <button onClick={() => handleFilterChange("pending")}>⏳ Pending</button>
+            <button onClick={() => handleFilterChange("completed")}>Completed</button>
+            <button onClick={() => handleFilterChange("pending")}>Pending</button>
           </div>
 
           <ul className="task-list">
@@ -106,15 +105,15 @@ function App() {
                       onBlur={(e) => saveTask(index, e.target.value)}
                       autoFocus
                     />
-                    <button className="save-button" onClick={() => saveTask(index, task.text)}>💾 Save</button>
+                    <button className="save-button" onClick={() => saveTask(index, task.text)}>Save</button>
                   </div>
                 ) : (
                   <>
                     <span onClick={() => toggleComplete(index)}>{task.text}</span>
                     <div className="task-buttons">
-                      <button onClick={() => toggleComplete(index)}>✔️ Complete</button>
-                      <button onClick={() => startEditing(index)}>✏️ Edit</button>
-                      <button onClick={() => deleteTask(index)}>❌ Delete</button>
+                      <button onClick={() => toggleComplete(index)}>Complete</button>
+                      <button onClick={() => startEditing(index)}>Edit</button>
+                      <button onClick={() => deleteTask(index)}>Delete</button>
                     </div>
                   </>
                 )}
@@ -122,7 +121,6 @@ function App() {
             ))}
           </ul>
 
-          {/* ✅ Success message below the task list */}
           {completionMessage && <p className="completion-message">{completionMessage}</p>}
         </div>
       </div>
